@@ -57,14 +57,14 @@ const Dashboard: React.FC = () => {
   }
 
   async function handleDeleteFood(id: number): Promise<void> {
-    api.delete('/foods', {
-      data: {
-        id,
-      },
-    });
+    try {
+      api.delete(`/foods/${id}`);
 
-    const foodsWithOutSelectedFood = foods.filter(food => food.id !== id);
-    setFoods(foodsWithOutSelectedFood);
+      const foodsWithOutSelectedFood = foods.filter(food => food.id !== id);
+      setFoods(foodsWithOutSelectedFood);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   function toggleModal(): void {
